@@ -1,9 +1,18 @@
+// These are relevant doc(s) related to the gradle-pitest-plugin
+// https://gradle-pitest-plugin.solidsoft.info
+
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id("info.solidsoft.pitest")
+    id "pl.droidsonroids.pitest"
 }
 
+// This is the pitest plugin configuration
+// How to manipulate plugin: https://pitest.org/quickstart/commandline/
+pitest {
+    targetClasses = ['code.with.cal.kotlincalculatorapp.*'] //want to test package
+    mutators = ['CONDITIONALS_BOUNDARY']
+}
 android {
     compileSdkVersion 30
 
@@ -30,7 +39,6 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-
 }
 
 dependencies {
@@ -44,4 +52,5 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     apply plugin: 'kotlin-android-extensions'
+    apply plugin: "pl.droidsonroids.pitest"
 }
